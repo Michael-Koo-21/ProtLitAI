@@ -1,13 +1,17 @@
 """Tests for core application components."""
 
 import pytest
+import sys
 from pathlib import Path
 import tempfile
 import shutil
 
-from src.core.config import ConfigManager, AppSettings
-from src.core.database import DatabaseManager
-from src.core.models import Paper, PaperType, SourceType
+# Add src to Python path
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+
+from core.config import ConfigManager, AppSettings
+from core.database import DatabaseManager
+from core.models import Paper, PaperType, SourceType
 
 
 class TestConfiguration:

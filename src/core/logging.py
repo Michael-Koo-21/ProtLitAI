@@ -9,7 +9,7 @@ import structlog
 from rich.logging import RichHandler
 from rich.console import Console
 
-from .config import config
+from core.config import config
 
 
 class ProtLitAILogger:

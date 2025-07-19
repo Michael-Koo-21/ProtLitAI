@@ -2,7 +2,7 @@
 
 from typing import Optional, List, Dict, Any
 from datetime import datetime
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator, ConfigDict
 from enum import Enum
 
 
@@ -67,18 +67,19 @@ class Paper(BaseModel):
     created_at: datetime = Field(default_factory=datetime.utcnow, description="Creation timestamp")
     updated_at: datetime = Field(default_factory=datetime.utcnow, description="Last update timestamp")
     
-    @validator('relevance_score')
+    @field_validator('relevance_score')
+    @classmethod
     def validate_relevance_score(cls, v):
         if v is not None and (v < 0 or v > 1):
             raise ValueError('Relevance score must be between 0 and 1')
         return v
     
-    @validator('authors')
+    @field_validator('authors')
+    @classmethod
     def validate_authors(cls, v):
         return [author.strip() for author in v if author.strip()]
     
-    class Config:
-        use_enum_values = True
+    model_config = ConfigDict(use_enum_values=True)
 
 
 class Author(BaseModel):
@@ -94,8 +95,7 @@ class Author(BaseModel):
     first_seen: Optional[datetime] = Field(None, description="First appearance date")
     last_seen: Optional[datetime] = Field(None, description="Last appearance date")
     
-    class Config:
-        use_enum_values = True
+    model_config = ConfigDict(use_enum_values=True)
 
 
 class Entity(BaseModel):
@@ -110,14 +110,14 @@ class Entity(BaseModel):
     end_position: Optional[int] = Field(None, description="End position in text")
     context: Optional[str] = Field(None, description="Surrounding context")
     
-    @validator('confidence')
+    @field_validator('confidence')
+    @classmethod
     def validate_confidence(cls, v):
         if v < 0 or v > 1:
             raise ValueError('Confidence must be between 0 and 1')
         return v
     
-    class Config:
-        use_enum_values = True
+    model_config = ConfigDict(use_enum_values=True)
 
 
 class Embedding(BaseModel):
@@ -128,7 +128,8 @@ class Embedding(BaseModel):
     model_version: str = Field(..., description="Model version used")
     created_at: datetime = Field(default_factory=datetime.utcnow, description="Creation timestamp")
     
-    @validator('embedding')
+    @field_validator('embedding')
+    @classmethod
     def validate_embedding(cls, v):
         if not v:
             raise ValueError('Embedding cannot be empty')
@@ -148,7 +149,8 @@ class Trend(BaseModel):
     significance_score: Optional[float] = Field(None, description="Statistical significance")
     created_at: datetime = Field(default_factory=datetime.utcnow, description="Creation timestamp")
     
-    @validator('paper_count')
+    @field_validator('paper_count')
+    @classmethod
     def validate_paper_count(cls, v):
         if v < 0:
             raise ValueError('Paper count cannot be negative')
@@ -167,7 +169,8 @@ class Alert(BaseModel):
     last_triggered: Optional[datetime] = Field(None, description="Last trigger time")
     is_active: bool = Field(default=True, description="Whether alert is active")
     
-    @validator('frequency')
+    @field_validator('frequency')
+    @classmethod
     def validate_frequency(cls, v):
         valid_frequencies = ['daily', 'weekly', 'monthly']
         if v not in valid_frequencies:
@@ -193,13 +196,15 @@ class SearchQuery(BaseModel):
     sort_by: str = Field(default="relevance", description="Sort field")
     sort_order: str = Field(default="desc", description="Sort order")
     
-    @validator('limit')
+    @field_validator('limit')
+    @classmethod
     def validate_limit(cls, v):
         if v <= 0 or v > 1000:
             raise ValueError('Limit must be between 1 and 1000')
         return v
     
-    @validator('sort_order')
+    @field_validator('sort_order')
+    @classmethod
     def validate_sort_order(cls, v):
         if v not in ['asc', 'desc']:
             raise ValueError('Sort order must be "asc" or "desc"')

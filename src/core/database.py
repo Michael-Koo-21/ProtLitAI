@@ -9,8 +9,8 @@ from contextlib import asynccontextmanager, contextmanager
 import threading
 from concurrent.futures import ThreadPoolExecutor
 
-from .config import config
-from .logging import get_logger
+from core.config import config
+from core.logging import get_logger
 
 
 class DatabaseManager:

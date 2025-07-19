@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 from urllib.parse import urljoin, quote
 import hashlib
 
-from .base_collector import BaseCollector
+from collectors.base_collector import BaseCollector
 from core.models import Paper, SourceType, PaperType
 from core.config import config
 

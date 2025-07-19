@@ -14,9 +14,9 @@ from pathlib import Path
 import json
 import hashlib
 
-from ..core.models import Paper
-from ..core.repository import EmbeddingRepository
-from .ml_models import get_model_manager, M2ModelManager
+from core.models import Paper
+from core.repository import EmbeddingRepository
+from processing.ml_models import get_model_manager, M2ModelManager
 
 logger = logging.getLogger(__name__)
 

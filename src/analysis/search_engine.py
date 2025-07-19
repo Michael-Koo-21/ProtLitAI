@@ -5,11 +5,11 @@ import sqlite3
 from typing import List, Dict, Optional, Tuple, Any, Set
 from datetime import datetime, timedelta
 
-from ..core.database import db_manager
-from ..core.models import Paper, SearchQuery, SearchResult, EntityType
-from ..core.repository import paper_repo, entity_repo
-from ..core.logging import get_logger, PerformanceLogger
-from .similarity_engine import similarity_engine
+from core.database import db_manager
+from core.models import Paper, SearchQuery, SearchResult, EntityType
+from core.repository import paper_repo, entity_repo
+from core.logging import get_logger, PerformanceLogger
+from analysis.similarity_engine import similarity_engine
 
 
 class HybridSearchEngine:

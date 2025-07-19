@@ -8,7 +8,7 @@ from datetime import datetime
 from urllib.parse import urlencode
 import hashlib
 
-from .base_collector import BaseCollector
+from collectors.base_collector import BaseCollector
 from core.models import Paper, SourceType, PaperType
 from core.config import config
 

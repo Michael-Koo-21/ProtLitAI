@@ -5,8 +5,8 @@ from pathlib import Path
 import sqlite3
 import duckdb
 
-from .config import config
-from .logging import get_logger
+from core.config import config
+from core.logging import get_logger
 
 
 class SchemaManager:

@@ -13,12 +13,12 @@ from dataclasses import dataclass
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 
-from ..core.models import Paper, Entity
-from ..core.repository import PaperRepository, EmbeddingRepository, EntityRepository
-from .ml_models import get_model_manager, cleanup_models
-from .embedding_generator import EmbeddingGenerator, EmbeddingConfig
-from .entity_extractor import EntityExtractor, EntityExtractionConfig
-from .pdf_processor import PDFProcessor
+from core.models import Paper, Entity
+from core.repository import PaperRepository, EmbeddingRepository, EntityRepository
+from processing.ml_models import get_model_manager, cleanup_models
+from processing.embedding_generator import EmbeddingGenerator, EmbeddingConfig
+from processing.entity_extractor import EntityExtractor, EntityExtractionConfig
+from processing.pdf_processor import PDFProcessor
 
 logger = logging.getLogger(__name__)
 

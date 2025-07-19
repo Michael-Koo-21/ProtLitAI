@@ -11,9 +11,9 @@ from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import QThread, pyqtSignal, QTimer
 from PyQt6.QtGui import QPixmap, QIcon
 
-from .main_window import MainWindow
-from ..core.logging import get_logger
-from ..core.config import config
+from ui.main_window import MainWindow
+from core.logging import get_logger
+from core.config import config
 
 
 class ProtLitAIApplication(QApplication):

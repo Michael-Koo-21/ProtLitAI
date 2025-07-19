@@ -5,9 +5,9 @@ import sqlite3
 from typing import List, Dict, Any, Optional, Tuple
 from datetime import datetime
 
-from .database import db_manager
-from .models import Paper, Author, Entity, Embedding, Trend, Alert
-from .logging import get_logger, PerformanceLogger
+from core.database import db_manager
+from core.models import Paper, Author, Entity, Embedding, Trend, Alert
+from core.logging import get_logger, PerformanceLogger
 
 
 class PaperRepository:

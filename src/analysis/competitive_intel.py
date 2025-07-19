@@ -8,10 +8,10 @@ from datetime import datetime, timedelta
 from collections import defaultdict, Counter
 import networkx as nx
 
-from ..core.database import db_manager
-from ..core.models import Paper, Author, EntityType
-from ..core.repository import paper_repo, entity_repo
-from ..core.logging import get_logger, PerformanceLogger
+from core.database import db_manager
+from core.models import Paper, Author, EntityType
+from core.repository import paper_repo, entity_repo
+from core.logging import get_logger, PerformanceLogger
 
 
 class CompetitiveIntelligence:
@@ -704,8 +704,8 @@ class CompetitiveIntelligence:
                 'recent_papers': len([p for p in papers 
                                     if p.publication_date and 
                                     p.publication_date >= datetime.utcnow() - timedelta(days=365)]),
-                'avg_relevance': np.mean([p.relevance_score for p in papers 
-                                        if p.relevance_score]) if papers else 0,
+                'avg_relevance': sum([p.relevance_score for p in papers 
+                                        if p.relevance_score]) / len([p for p in papers if p.relevance_score]) if any(p.relevance_score for p in papers) else 0,
                 'publication_span_days': 0
             }
             

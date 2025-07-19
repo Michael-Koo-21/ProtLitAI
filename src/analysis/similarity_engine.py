@@ -6,10 +6,10 @@ from typing import List, Dict, Optional, Tuple, Any
 from datetime import datetime
 from sklearn.metrics.pairwise import cosine_similarity
 
-from ..core.database import db_manager
-from ..core.models import Paper, SearchQuery, SearchResult, Embedding
-from ..core.repository import paper_repo, embedding_repo
-from ..core.logging import get_logger, PerformanceLogger
+from core.database import db_manager
+from core.models import Paper, SearchQuery, SearchResult, Embedding
+from core.repository import paper_repo, embedding_repo
+from core.logging import get_logger, PerformanceLogger
 
 
 class SimilarityEngine:

@@ -10,7 +10,7 @@ from urllib.parse import urlencode, quote
 import hashlib
 import re
 
-from .base_collector import BaseCollector
+from collectors.base_collector import BaseCollector
 from core.models import Paper, SourceType, PaperType
 from core.config import config
 

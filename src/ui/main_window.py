@@ -10,10 +10,10 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt, QTimer, pyqtSignal, QThread, QSize
 from PyQt6.QtGui import QIcon, QAction, QPixmap, QFont, QPalette
 
-from ..core.logging import get_logger
-from ..core.config import config
-from .dashboard import Dashboard, DashboardController
-from .search_interface import SearchInterface
+from core.logging import get_logger
+from core.config import config
+from ui.dashboard import Dashboard, DashboardController
+from ui.search_interface import SearchInterface
 
 
 class MainWindow(QMainWindow):

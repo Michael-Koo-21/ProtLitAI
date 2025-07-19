@@ -9,8 +9,8 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt, QTimer, pyqtSignal, QThread, QSize
 from PyQt6.QtGui import QFont, QPalette, QPixmap, QPainter, QColor
 
-from ..core.logging import get_logger
-from ..core.repository import paper_repo
+from core.logging import get_logger
+from core.repository import paper_repo
 
 
 class StatCard(QFrame):

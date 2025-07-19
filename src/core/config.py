@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Optional, Dict, Any
 from pydantic import Field
 from pydantic_settings import BaseSettings
+from pydantic import ConfigDict
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -17,47 +18,49 @@ class AppSettings(BaseSettings):
     # Application
     app_name: str = "ProtLitAI"
     version: str = "1.0.0"
-    debug: bool = Field(default=False, env="DEBUG")
+    debug: bool = Field(default=False, validation_alias="DEBUG")
     
     # Database
-    db_path: str = Field(default="data/literature.db", env="DB_PATH")
-    analytics_db_path: str = Field(default="data/analytics.db", env="ANALYTICS_DB_PATH")
+    db_path: str = Field(default="data/literature.db", validation_alias="DB_PATH")
+    analytics_db_path: str = Field(default="data/analytics.db", validation_alias="ANALYTICS_DB_PATH")
     
     # API Keys
-    pubmed_api_key: Optional[str] = Field(default=None, env="PUBMED_API_KEY")
-    openai_api_key: Optional[str] = Field(default=None, env="OPENAI_API_KEY")
+    pubmed_api_key: Optional[str] = Field(default=None, validation_alias="PUBMED_API_KEY")
+    openai_api_key: Optional[str] = Field(default=None, validation_alias="OPENAI_API_KEY")
     
     # API Rate Limits (requests per second)
-    pubmed_rate_limit: float = Field(default=10.0, env="PUBMED_RATE_LIMIT")
-    arxiv_rate_limit: float = Field(default=1.0, env="ARXIV_RATE_LIMIT")
-    scholar_rate_limit: float = Field(default=0.5, env="SCHOLAR_RATE_LIMIT")
+    pubmed_rate_limit: float = Field(default=10.0, validation_alias="PUBMED_RATE_LIMIT")
+    arxiv_rate_limit: float = Field(default=1.0, validation_alias="ARXIV_RATE_LIMIT")
+    scholar_rate_limit: float = Field(default=0.5, validation_alias="SCHOLAR_RATE_LIMIT")
     
     # ML Model Settings
-    embedding_model: str = Field(default="all-MiniLM-L6-v2", env="EMBEDDING_MODEL")
-    spacy_model: str = Field(default="en_core_sci_lg", env="SPACY_MODEL")
-    device: str = Field(default="mps", env="DEVICE")  # M2 optimization
-    batch_size: int = Field(default=32, env="BATCH_SIZE")
-    max_memory_gb: float = Field(default=6.0, env="MAX_MEMORY_GB")
+    embedding_model: str = Field(default="all-MiniLM-L6-v2", validation_alias="EMBEDDING_MODEL")
+    spacy_model: str = Field(default="en_core_sci_lg", validation_alias="SPACY_MODEL")
+    device: str = Field(default="mps", validation_alias="DEVICE")  # M2 optimization
+    batch_size: int = Field(default=32, validation_alias="BATCH_SIZE")
+    max_memory_gb: float = Field(default=6.0, validation_alias="MAX_MEMORY_GB")
     
     # Storage
-    pdf_storage_path: str = Field(default="cache/pdfs", env="PDF_STORAGE_PATH")
-    embedding_cache_path: str = Field(default="cache/embeddings", env="EMBEDDING_CACHE_PATH")
-    model_cache_path: str = Field(default="models", env="MODEL_CACHE_PATH")
+    pdf_storage_path: str = Field(default="cache/pdfs", validation_alias="PDF_STORAGE_PATH")
+    embedding_cache_path: str = Field(default="cache/embeddings", validation_alias="EMBEDDING_CACHE_PATH")
+    model_cache_path: str = Field(default="models", validation_alias="MODEL_CACHE_PATH")
     
     # Logging
-    log_level: str = Field(default="INFO", env="LOG_LEVEL")
-    log_file: str = Field(default="logs/protlitai.log", env="LOG_FILE")
-    log_rotation_mb: int = Field(default=100, env="LOG_ROTATION_MB")
+    log_level: str = Field(default="INFO", validation_alias="LOG_LEVEL")
+    log_file: str = Field(default="logs/protlitai.log", validation_alias="LOG_FILE")
+    log_rotation_mb: int = Field(default=100, validation_alias="LOG_ROTATION_MB")
     
     # Collection Settings
-    collection_schedule: str = Field(default="0 6 * * *", env="COLLECTION_SCHEDULE")  # Daily at 6 AM
-    max_papers_per_day: int = Field(default=1000, env="MAX_PAPERS_PER_DAY")
-    retry_attempts: int = Field(default=3, env="RETRY_ATTEMPTS")
-    request_timeout: int = Field(default=30, env="REQUEST_TIMEOUT")
+    collection_schedule: str = Field(default="0 6 * * *", validation_alias="COLLECTION_SCHEDULE")  # Daily at 6 AM
+    max_papers_per_day: int = Field(default=1000, validation_alias="MAX_PAPERS_PER_DAY")
+    retry_attempts: int = Field(default=3, validation_alias="RETRY_ATTEMPTS")
+    request_timeout: int = Field(default=30, validation_alias="REQUEST_TIMEOUT")
     
-    class Config:
-        env_file = ".env"
-        case_sensitive = False
+    model_config = ConfigDict(
+        env_file=".env",
+        case_sensitive=False,
+        env_prefix=""
+    )
 
 
 class ConfigManager:

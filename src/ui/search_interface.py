@@ -11,9 +11,9 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt, QTimer, pyqtSignal, QThread, QSize, QSortFilterProxyModel
 from PyQt6.QtGui import QFont, QPalette, QPixmap, QPainter, QColor, QAction
 
-from ..core.logging import get_logger
-from ..core.models import SearchQuery, SearchResult, Paper
-from ..analysis import search_engine
+from core.logging import get_logger
+from core.models import SearchQuery, SearchResult, Paper
+from analysis import search_engine
 
 
 class SearchFiltersWidget(QGroupBox):

@@ -11,10 +11,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 from scipy import stats
 
-from ..core.database import db_manager
-from ..core.models import Paper, Trend, EntityType
-from ..core.repository import paper_repo, entity_repo
-from ..core.logging import get_logger, PerformanceLogger
+from core.database import db_manager
+from core.models import Paper, Trend, EntityType
+from core.repository import paper_repo, entity_repo
+from core.logging import get_logger, PerformanceLogger
 
 
 class TrendAnalyzer:

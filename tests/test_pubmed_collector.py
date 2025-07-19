@@ -5,14 +5,16 @@ import asyncio
 import sys
 import os
 from pathlib import Path
+import pytest
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from src.collectors.pubmed_collector import collect_pubmed_papers
-from src.core.logging import setup_logging
+from collectors.pubmed_collector import collect_pubmed_papers
+from core.logging import setup_logging
 
 
+@pytest.mark.asyncio
 async def test_pubmed_collection():
     """Test PubMed paper collection."""
     # Setup logging

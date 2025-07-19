@@ -12,9 +12,9 @@ from dataclasses import dataclass
 from enum import Enum
 import re
 
-from ..core.models import Paper, Entity
-from ..core.repository import EntityRepository
-from .ml_models import get_model_manager
+from core.models import Paper, Entity
+from core.repository import EntityRepository
+from processing.ml_models import get_model_manager
 
 logger = logging.getLogger(__name__)
 

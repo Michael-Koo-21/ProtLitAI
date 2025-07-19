@@ -18,7 +18,7 @@ from spacy.tokens import Doc
 import numpy as np
 from dataclasses import dataclass
 
-from ..core.config import AppSettings
+from core.config import config
 
 logger = logging.getLogger(__name__)
 
@@ -45,9 +45,9 @@ class M2ModelManager:
     - Performance monitoring
     """
     
-    def __init__(self, config: Optional[ModelConfig] = None):
-        self.config = config or ModelConfig()
-        self.settings = AppSettings()
+    def __init__(self, model_config: Optional[ModelConfig] = None):
+        self.config = model_config or ModelConfig()
+        self.settings = config.settings
         
         # Initialize device (MPS for M2, CPU fallback)
         self.device = self._setup_device()
@@ -65,8 +65,8 @@ class M2ModelManager:
         }
         
         # Set up model directories
-        self.cache_dir = Path(self.settings.base_dir) / self.config.cache_dir
-        self.cache_dir.mkdir(exist_ok=True)
+        self.cache_dir = Path(self.settings.model_cache_path)
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
         
         logger.info(f"M2ModelManager initialized with device: {self.device}")
     

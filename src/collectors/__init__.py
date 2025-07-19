@@ -1,9 +1,9 @@
 """Literature collection modules."""
 
-from .base_collector import BaseCollector, CollectionStats, RateLimiter
-from .pubmed_collector import PubMedCollector, collect_pubmed_papers
-from .arxiv_collector import ArxivCollector, collect_arxiv_papers
-from .biorxiv_collector import BiorxivCollector, collect_biorxiv_papers
+from collectors.base_collector import BaseCollector, CollectionStats, RateLimiter
+from collectors.pubmed_collector import PubMedCollector, collect_pubmed_papers
+from collectors.arxiv_collector import ArxivCollector, collect_arxiv_papers
+from collectors.biorxiv_collector import BiorxivCollector, collect_biorxiv_papers
 
 __all__ = [
     "BaseCollector",
