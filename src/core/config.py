@@ -59,7 +59,8 @@ class AppSettings(BaseSettings):
     model_config = ConfigDict(
         env_file=".env",
         case_sensitive=False,
-        env_prefix=""
+        env_prefix="",
+        protected_namespaces=()
     )
 
 

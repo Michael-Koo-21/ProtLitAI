@@ -153,10 +153,12 @@ class MainWindow(QMainWindow):
                 border: 1px solid #d0d0d0;
                 border-radius: 6px;
                 font-size: 13px;
+                color: #333333;
                 background-color: #f8f8f8;
             }
             QLineEdit:focus {
                 border-color: #007AFF;
+                color: #000000;
                 background-color: white;
             }
         """)
@@ -533,7 +535,7 @@ class MainWindow(QMainWindow):
     def update_status(self, message: str):
         """Update status bar message."""
         self.status_label.setText(message)
-        self.logger.debug("Status updated", message=message)
+        self.logger.debug(f"Status updated: {message}")
     
     def closeEvent(self, event):
         """Handle window close event."""

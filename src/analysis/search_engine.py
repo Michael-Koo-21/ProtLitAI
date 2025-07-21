@@ -113,7 +113,7 @@ class HybridSearchEngine:
                 # Execute FTS search with ranking
                 cursor = conn.execute("""
                     SELECT p.*, 
-                           rank(matchinfo(fts)) as relevance_score,
+                           bm25(papers_fts) as relevance_score,
                            snippet(papers_fts, '<mark>', '</mark>', '...', -1, 32) as snippet
                     FROM papers p
                     JOIN papers_fts fts ON p.rowid = fts.rowid
@@ -124,7 +124,12 @@ class HybridSearchEngine:
                 for row in cursor.fetchall():
                     paper = paper_repo._row_to_paper(row)
                     # Normalize FTS relevance score to 0-1 range
-                    score = min(row["relevance_score"] / 100.0, 1.0)
+                    raw_score = row["relevance_score"]
+                    if raw_score is not None:
+                        # BM25 scores can be negative, so we need to handle them properly
+                        score = max(0.0, min(abs(raw_score) / 10.0, 1.0))
+                    else:
+                        score = 0.5  # Default score if bm25 returns None
                     snippet = row["snippet"] or ""
                     
                     results.append((paper, score, "keyword"))
@@ -382,16 +387,48 @@ class HybridSearchEngine:
     
     def _prepare_fts_query(self, query: str) -> str:
         """Prepare query for FTS5 search."""
-        # Remove special characters and prepare for FTS
+        # Handle quoted phrases first
+        if '"' in query:
+            return query  # Return as-is for phrase searches
+        
+        # FTS5 boolean operators (case insensitive)
+        boolean_ops = {'AND', 'OR', 'NOT'}
+        
         terms = []
         for term in query.strip().split():
-            # Remove special characters
-            clean_term = ''.join(c for c in term if c.isalnum() or c in '-_')
+            # Preserve boolean operators
+            if term.upper() in boolean_ops:
+                terms.append(term.upper())
+                continue
+            
+            # Clean the term - handle special characters
+            if '-' in term and term.count('-') == 1:
+                # Handle hyphenated terms like "protein-protein" by splitting
+                parts = term.split('-')
+                for part in parts:
+                    clean_part = ''.join(c for c in part if c.isalnum())
+                    if len(clean_part) >= 2:
+                        terms.append(f"{clean_part}*")
+                continue
+            
+            # Remove special characters but preserve alphanumeric
+            clean_term = ''.join(c for c in term if c.isalnum())
+            
+            # Only add terms that are long enough
             if len(clean_term) >= 2:
-                # Add wildcard for partial matching
                 terms.append(f"{clean_term}*")
         
-        return ' '.join(terms)
+        # Join terms - if no boolean operators, use implicit AND (space-separated)
+        result = ' '.join(terms)
+        
+        # For multi-word queries without explicit operators, try both approaches:
+        # First as phrase-like (all terms must appear), fallback to any terms
+        if not any(op in result.upper() for op in boolean_ops) and len(terms) > 1:
+            # For complex queries, make it more flexible by using OR
+            if len(terms) > 2:
+                result = ' OR '.join(terms)
+        
+        return result
     
     def _generate_cache_key(self, search_query: SearchQuery) -> str:
         """Generate cache key for search query."""

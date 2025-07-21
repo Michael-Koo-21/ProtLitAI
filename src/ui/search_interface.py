@@ -176,11 +176,19 @@ class SearchFiltersWidget(QGroupBox):
                 border: 1px solid #d0d0d0;
                 border-radius: 4px;
                 font-size: 12px;
+                color: #333333;
                 background-color: #fafafa;
             }
             QLineEdit:focus, QComboBox:focus {
                 border-color: #007AFF;
+                color: #000000;
                 background-color: white;
+            }
+            QComboBox QAbstractItemView {
+                color: #333333;
+                background-color: white;
+                selection-background-color: #007AFF;
+                selection-color: white;
             }
         """
     
@@ -280,6 +288,7 @@ class SearchResultsTable(QTableWidget):
             QTableWidget::item {
                 padding: 8px;
                 border-bottom: 1px solid #f5f5f5;
+                color: #333333;
             }
             QTableWidget::item:selected {
                 background-color: #e3f2fd;
@@ -428,6 +437,7 @@ class PaperDetailWidget(QFrame):
                 padding: 10px;
                 font-size: 13px;
                 line-height: 1.4;
+                color: #333333;
                 background-color: #fafafa;
             }
         """)
@@ -580,10 +590,12 @@ class SearchInterface(QWidget):
                 border: 2px solid #d0d0d0;
                 border-radius: 8px;
                 font-size: 16px;
+                color: #000000;
                 background-color: white;
             }
             QLineEdit:focus {
                 border-color: #007AFF;
+                color: #000000;
             }
         """)
         self.search_input.returnPressed.connect(self._perform_search)

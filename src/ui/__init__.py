@@ -1,7 +1,7 @@
 """User interface modules for ProtLitAI."""
 
-from ui.app import ProtLitAIApplication, run_application
-from ui.main_window import MainWindow
+from .app import ProtLitAIApplication, run_application
+from .main_window import MainWindow
 
 __all__ = [
     'ProtLitAIApplication',

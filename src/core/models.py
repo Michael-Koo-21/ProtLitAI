@@ -128,6 +128,8 @@ class Embedding(BaseModel):
     model_version: str = Field(..., description="Model version used")
     created_at: datetime = Field(default_factory=datetime.utcnow, description="Creation timestamp")
     
+    model_config = ConfigDict(protected_namespaces=())
+    
     @field_validator('embedding')
     @classmethod
     def validate_embedding(cls, v):

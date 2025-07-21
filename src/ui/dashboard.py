@@ -145,6 +145,7 @@ class RecentPapersWidget(QGroupBox):
                 border-bottom: 1px solid #f0f0f0;
                 border-radius: 4px;
                 margin: 2px 0;
+                color: #333333;
             }
             QListWidget::item:hover {
                 background-color: #f8f8f8;
@@ -261,6 +262,7 @@ class TrendingTopicsWidget(QGroupBox):
                 padding: 6px;
                 border-radius: 4px;
                 margin: 1px 0;
+                color: #333333;
             }
         """)
         
