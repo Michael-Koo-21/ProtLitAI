@@ -1,6 +1,6 @@
 # ProtLitAI - Protein Design Literature Intelligence Engine
 
-## 🚀 **Production Ready** - Complete AI-powered system for protein design literature intelligence
+## 🚀 AI-powered system for protein design literature intelligence
 
 A comprehensive, locally-deployed AI system that automatically monitors, analyzes, and synthesizes protein design literature from multiple sources with advanced ML capabilities optimized for Apple Silicon.
 
@@ -71,7 +71,7 @@ python production_collection.py --mode test
 python -m src.ui.app
 ```
 
-**That's it!** Your ProtLitAI system is ready for production use.
+**That's it!** Your ProtLitAI system is ready for use.
 
 ### First Day Usage
 
@@ -232,10 +232,6 @@ For issues and questions:
 1. Check the troubleshooting guide
 2. Review logs in `logs/protlitai.log`
 3. Create GitHub issue with reproduction steps
-
-## License
-
-[License details to be added]
 
 ## Contributing
 
