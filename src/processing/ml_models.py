@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 class ModelConfig:
     """Configuration for ML models"""
     embedding_model_name: str = "all-MiniLM-L6-v2"
-    spacy_model_name: str = "en_core_sci_lg"
+    spacy_model_name: str = "en_core_web_sm"
     max_sequence_length: int = 512
     batch_size: int = 32
     cache_dir: str = "models"
@@ -46,8 +46,13 @@ class M2ModelManager:
     """
     
     def __init__(self, model_config: Optional[ModelConfig] = None):
-        self.config = model_config or ModelConfig()
         self.settings = config.settings
+        self.config = model_config or ModelConfig(
+            embedding_model_name=self.settings.embedding_model,
+            spacy_model_name=self.settings.spacy_model,
+            batch_size=self.settings.batch_size,
+            cache_dir=self.settings.model_cache_path
+        )
         
         # Initialize device (MPS for M2, CPU fallback)
         self.device = self._setup_device()

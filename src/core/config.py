@@ -35,7 +35,7 @@ class AppSettings(BaseSettings):
     
     # ML Model Settings
     embedding_model: str = Field(default="all-MiniLM-L6-v2", validation_alias="EMBEDDING_MODEL")
-    spacy_model: str = Field(default="en_core_sci_lg", validation_alias="SPACY_MODEL")
+    spacy_model: str = Field(default="en_core_web_sm", validation_alias="SPACY_MODEL")
     device: str = Field(default="mps", validation_alias="DEVICE")  # M2 optimization
     batch_size: int = Field(default=32, validation_alias="BATCH_SIZE")
     max_memory_gb: float = Field(default=6.0, validation_alias="MAX_MEMORY_GB")
